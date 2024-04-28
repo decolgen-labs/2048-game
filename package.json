@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "email": "karasbuilder@gmail.com",
+    "name": "Karas Builder"
+  },
   "scripts": {
     "start": "vite --host",
     "dev": "vite",
@@ -11,8 +15,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@starknet-react/chains": "^0.1.7",
+    "@starknet-react/core": "^2.6.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "starknet": "^5.24.3",
+    "starknetkit": "^1.1.9",
     "styled-components": "^6.1.8",
     "styled-normalize": "^8.1.1"
   },
