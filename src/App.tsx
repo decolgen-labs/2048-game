@@ -1,9 +1,8 @@
 import './global.css';
-
-import PlayScreen from './layout/PlayScreen/PlayScreen';
+import MainScreen from './layout';
 
 function App() {
-  return <PlayScreen />;
+  return <MainScreen />;
 }
 
 export default App;

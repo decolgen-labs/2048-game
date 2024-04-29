@@ -92,15 +92,6 @@ const PlayScreen: FC = () => {
           flexDirection="column"
           inlineSize={`${GRID_SIZE}px`}
         >
-          {/* <Box marginBlockStart="s6" inlineSize="100%" justifyContent="end">
-            <Switch
-              title="dark mode"
-              checked={themeName === 'dark'}
-              activeValue="dark"
-              inactiveValue="default"
-              onChange={setTheme}
-            />
-          </Box> */}
           <Box
             inlineSize="100%"
             justifyContent="space-between"

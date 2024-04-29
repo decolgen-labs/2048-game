@@ -114,8 +114,6 @@ const StyledBox = styled.div<StyledBoxProps>`
     return justifyContent;
   }};
   align-items: ${({ alignItems }) => alignItems};
-  background-color: ${({ theme: { palette }, background = 'background' }) =>
-    palette[background]};
   border-radius: ${({ theme, borderRadius }) =>
     borderRadius ?? theme.borderRadius};
   color: ${({ theme: { palette } }) => palette.foreground};

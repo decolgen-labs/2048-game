@@ -1,6 +1,10 @@
 'use client';
+import { useWalletContext } from '@/providers/ProviderWalletContext';
 import PlayScreen from './PlayScreen/PlayScreen';
+import StartScreen from './StartScreen/StartScreen';
 const MainScreen = () => {
+  const { address } = useWalletContext();
+  console.log('What Wrong', address);
   return (
     <div>
       <video
@@ -16,11 +20,10 @@ const MainScreen = () => {
           zIndex: -1,
         }}
       >
-        <source src="/video/bg_motion.mp4" type="video/mp4" />
+        <source src="/assets/video/bg_motion.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-
-      <PlayScreen />
+      {address ? <PlayScreen /> : <StartScreen />}
       <div className="asset-bg " />
     </div>
   );
