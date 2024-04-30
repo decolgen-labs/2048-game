@@ -11,7 +11,15 @@ import { useWalletContext } from '@/providers/ProviderWalletContext';
 import CloseButton from '@/components/Button/CloseButton';
 import wallets from '@/config/wallet';
 import PlayButton from '@/components/Button/PlayButton';
-const StartScreen = () => {
+
+import Control from '@/components/Control';
+interface IProps {
+  rows: number;
+  cols: number;
+  onChangeRows: (newRow: number) => void;
+  onChangeCols: (newCol: number) => void;
+}
+const StartScreen = ({ onChangeCols, onChangeRows, rows, cols }: IProps) => {
   const [isOpenConnectWallet, setIsOpenConnectWallet] = React.useState(false);
 
   const { sound, connectWallet } = useWalletContext();
@@ -41,6 +49,12 @@ const StartScreen = () => {
           />
         </button>
         <img src="/assets/generals/2048_logo.svg" alt="2048 Logo" />
+        <Control
+          rows={rows}
+          cols={cols}
+          onChangeCol={onChangeCols}
+          onChangeRow={onChangeRows}
+        />
         <PlayButton
           onClick={() => {
             setIsOpenConnectWallet(true);

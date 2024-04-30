@@ -14,3 +14,5 @@ export const SpacingValues: Record<Spacing, string> = {
   s9: '48px',
   s10: '64px',
 };
+
+export const APP_NAME = 'starkarcade-2048';

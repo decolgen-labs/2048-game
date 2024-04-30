@@ -1,7 +1,6 @@
 import { useReducer } from 'react';
 import { Theme, ThemeName } from '../themes/types';
 import defaultTheme from '../themes/default';
-import darkTheme from '../themes/dark';
 
 export type ThemeEntity = {
   name: ThemeName;
@@ -14,7 +13,7 @@ const isThemeName = (t: string): t is ThemeName =>
 const getTheme = (name: ThemeName): ThemeEntity =>
   name === 'default'
     ? { name: 'default', value: defaultTheme }
-    : { name: 'dark', value: darkTheme };
+    : { name: 'dark', value: defaultTheme };
 
 const themeReducer = (theme: ThemeEntity, nextThemeName: string) =>
   isThemeName(nextThemeName) ? getTheme(nextThemeName) : theme;
