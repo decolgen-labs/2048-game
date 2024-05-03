@@ -32,12 +32,25 @@ export type Color =
   | 'tile512'
   | 'tile1024'
   | 'tile2048';
+export type BorderColor =
+  | 'tile2'
+  | 'tile4'
+  | 'tile8'
+  | 'tile16'
+  | 'tile32'
+  | 'tile64'
+  | 'tile128'
+  | 'tile256'
+  | 'tile512'
+  | 'tile1024'
+  | 'tile2048';
 
 export type Palette = Record<Color, string>;
-
+export type BorderPalette = Record<BorderColor, string>;
 export interface Theme {
   borderRadius: string;
   palette: Palette;
+  borderColor: BorderPalette; // New Declare Border Color
 }
 
 export type ThemeName = 'default' | 'dark';

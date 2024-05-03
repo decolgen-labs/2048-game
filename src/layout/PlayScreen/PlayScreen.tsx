@@ -82,11 +82,7 @@ const PlayScreen: FC = () => {
         flexDirection="column"
         inlineSize={`${GRID_SIZE}px`}
       >
-        <Box
-          inlineSize="100%"
-          justifyContent="space-between"
-          marginBlockStart="s2"
-        >
+        <Box inlineSize="100%" marginBlockStart="s2">
           <ScoreBoard total={total} title="score" />
           <ScoreBoard total={best} title="best" />
         </Box>

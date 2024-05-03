@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,800,800i,900i&display=swap');
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   height: 100vh;
   background: #000;
+  font-family: 'Nunito Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 .asset-bg {
   background: url('/assets/arts/bg_bottom.svg');

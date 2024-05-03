@@ -17,9 +17,22 @@ const Control: FC<ControlProps> = ({
   onChangeRow,
   onChangeCol,
 }) => (
-  <Box inlineSize="100%" justifyContent="center">
+  <Box
+    inlineSize="100%"
+    justifyContent="center"
+    style={{
+      fontWeight: '900',
+      background: 'rgba(7, 24, 35, 1)',
+    }}
+  >
     <Box marginInlineEnd="s6" flexDirection="column">
-      <Text textTransform="uppercase" fontSize={13} color="primary">
+      <Text
+        textTransform="uppercase"
+        fontSize={13}
+        style={{
+          color: 'rgba(36, 71, 142, 1)',
+        }}
+      >
         rows
       </Text>
       <Box padding="s2">
@@ -31,7 +44,12 @@ const Control: FC<ControlProps> = ({
           -
         </Button>
         <Box marginInline="s3">
-          <Text fontSize={16} color="primary">
+          <Text
+            fontSize={16}
+            style={{
+              color: 'rgba(64, 233, 241, 1)',
+            }}
+          >
             {rows}
           </Text>
         </Box>
@@ -45,7 +63,13 @@ const Control: FC<ControlProps> = ({
       </Box>
     </Box>
     <Box flexDirection="column">
-      <Text textTransform="uppercase" fontSize={13} color="primary">
+      <Text
+        textTransform="uppercase"
+        fontSize={13}
+        style={{
+          color: 'rgba(36, 71, 142, 1)',
+        }}
+      >
         cols
       </Text>
       <Box padding="s2">
@@ -57,7 +81,12 @@ const Control: FC<ControlProps> = ({
           -
         </Button>
         <Box marginInline="s3">
-          <Text fontSize={16} color="primary">
+          <Text
+            fontSize={16}
+            style={{
+              color: 'rgba(64, 233, 241, 1)',
+            }}
+          >
             {cols}
           </Text>
         </Box>

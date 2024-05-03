@@ -48,7 +48,7 @@ const StartScreen = ({ onChangeCols, onChangeRows, rows, cols }: IProps) => {
             width={24}
           />
         </button>
-        <img src="/assets/generals/2048_logo.svg" alt="2048 Logo" />
+        <img src="/assets/generals/2048_logo.svg" alt="2048 Logo" width={224} />
         <Control
           rows={rows}
           cols={cols}

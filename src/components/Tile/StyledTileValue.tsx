@@ -12,20 +12,22 @@ const StyledTileValue = styled.div<StyledTileValueProps>`
   width: 100%;
   height: 100%;
   font-size: inherit;
+  font-weight: 900;
   display: flex;
   text-align: center;
   flex-direction: column;
   justify-content: center;
   border-radius: ${({ theme }) => theme.borderRadius};
-  background-color: ${({ theme: { palette }, value }) =>
+  background: ${({ theme: { palette }, value }) =>
     palette[getTileColor(value)]};
   animation-name: ${({ isMerging, isNew }) =>
     isMerging ? pop : isNew ? expand : ''};
   animation-duration: 0.18s;
   animation-fill-mode: forwards;
-  color: ${({ theme: { palette }, value }) =>
-    value > 4 ? palette.foreground : palette.primary};
+  color: ${({ theme: { palette } }) => palette.white};
   user-select: none;
+  border: 1px solid
+    ${({ theme: { borderColor }, value }) => borderColor[getTileColor(value)]};
 `;
 
 export default StyledTileValue;
