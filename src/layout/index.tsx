@@ -38,6 +38,7 @@ const MainScreen = () => {
         autoPlay
         loop
         muted
+        preload="auto"
         style={{
           position: 'absolute',
           width: '100%',

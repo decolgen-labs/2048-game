@@ -1,5 +1,6 @@
 # 2048 Game
 
+### Require Node Version : 20
 Welcome to the 2048 game project by StarkArcade Hub | Karas Builder! This project aims to recreate the popular 2048 game in a fun and interactive way.
 
 ## Installation

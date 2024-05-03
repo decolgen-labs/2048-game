@@ -42,7 +42,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   );
   const [address, setAddress] = React.useState(config.address);
   const [chain_id, setChainId] = React.useState(config.chain_id);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [sound, setSound] = React.useState(config.sound);
   const { connect, connectors } = useConnect();
 
@@ -69,7 +69,11 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const handleReConenct = async () => {
       if (address && statusWallet === 'disconnected' && chain_id != undefined) {
-        await connect({ connector: connectors[chain_id] });
+        try {
+          await connect({ connector: connectors[chain_id] });
+        } catch (error) {
+          await disconnectWallet();
+        }
       }
     };
     handleReConenct();
