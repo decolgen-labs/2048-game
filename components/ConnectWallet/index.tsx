@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import ModalConnectWallet from "./ModalConnectWallet";
-
+import BackgroudImage from "@/public/assets/btn/play_btn.svg";
 import StarknetIcon from "@/public/assets/generals/stark.svg";
 
 const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {
@@ -22,20 +22,12 @@ const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {
           onClick={() => {
             onOpen();
           }}
-          bg="#1B266B"
-          borderRadius={{ md: "32px", base: "12px" }}
-          gap={4}
+          gap={2}
           role="group"
           {...sx}
         >
-          <Icon as={StarknetIcon} h={6} width={6} />
-          <Text
-            sx={{
-              display: { md: "block", base: "none" },
-            }}
-          >
-            Connect Wallet
-          </Text>
+          <Icon as={StarknetIcon} h={5} width={5} />
+          <Text fontSize="14px">{`Let's Stark`}</Text>
         </Button>
 
         <ModalConnectWallet isOpen={isOpen} onClose={onClose} />

@@ -1,4 +1,4 @@
-import { getBoardData, senderCommand } from "@/config/socket_karas";
+import { senderCommand } from "@/config/socket_karas";
 import { MIN_SIZE_BOARD } from "@/themes/constants";
 
 type State = {

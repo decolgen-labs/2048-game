@@ -14,6 +14,7 @@ import React from "react";
 import BtnConnectWallet from "./BtnConnectWallet";
 import wallets from "@/config/wallet";
 import { useWalletContext } from "@/providers/ProviderWalletContext";
+
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,7 +26,6 @@ export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent
-        bg="#0A1450"
         borderRadius="32px"
         margin={{ md: 0, base: 4 }}
         _before={{

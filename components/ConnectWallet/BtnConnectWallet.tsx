@@ -1,4 +1,4 @@
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from "@chakra-ui/react";
 
 const BtnConnectWallet = ({ onClick, icon, label }: any) => (
   <Flex
@@ -9,8 +9,8 @@ const BtnConnectWallet = ({ onClick, icon, label }: any) => (
     cursor="pointer"
     color="#7A8CFF"
     _hover={{
-      bg: 'gradient.100',
-      color: 'white',
+      bg: "gradient.100",
+      color: "white",
     }}
     onClick={onClick}
     px={8}
