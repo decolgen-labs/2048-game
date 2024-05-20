@@ -13,6 +13,9 @@
     "test-coverage": "jest --coverage --verbose"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@starknet-react/chains": "^0.1.7",
     "@starknet-react/core": "^2.6.1",
     "@types/node": "20.5.1",
@@ -21,6 +24,7 @@
     "axios": "^1.6.8",
     "eslint": "8.47.0",
     "eslint-config-next": "14.0.4",
+    "framer-motion": "^11.2.4",
     "lodash": "4.17.21",
     "next": "14.0.4",
     "react": "18.2.0",
