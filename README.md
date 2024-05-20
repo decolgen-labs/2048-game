@@ -1,27 +1,41 @@
-# 2048 Game
+# 2048-in-react
 
-### Require Node Version : 20
-Welcome to the 2048 game project by StarkArcade Hub | Karas Builder! This project aims to recreate the popular 2048 game in a fun and interactive way.
+[![Open issues][issues-badge]][issues-url]
+[![CI][lint-badge]][lint-url]
+[![CI][test-badge]][test-url]
+[![TypeScript][typescript-badge]][typescript-url]
 
-## Installation
+[![](.docs/demo.gif)](https://mateuszsokola.github.io/2048-in-react/)
 
-To install and run the 2048 game, follow these steps:
+## [Play 2048 💥](https://mateuszsokola.github.io/2048-in-react/)
 
-1. Clone the repository to your local machine:
-  ```bash
-  git clone https://github.com/StarkArcadeHub/2048-game.git
-  ```
+## Features
 
-2. Navigate to the project directory:
-  ```bash
-  cd 2048-game
-  ```
+- Fully-functional 2048 clone
+- Animations
+- Supports **keyboard**, **mouse** and **touch** events
 
-3. Install the required dependencies:
-  ```bash
-  npm install
-  ```
+## Development
 
-## Usage
+_Easily set up a local development environment!_
 
-To start playing the 2048 game, run the following command:
+Just start dev server on [localhost](http://localhost:3000):
+
+- clone
+- `npm install`
+- `npm run dev`
+
+**Start coding!** 🎉
+
+## Build your own 2048 Game! 🚀
+
+[![Build 2048 Game in React](https://assets.mateu.sh/assets/github-2048-in-react-readme)](https://assets.mateu.sh/r/github-2048-in-react-readme)
+
+[lint-badge]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/lint.yml/badge.svg
+[lint-url]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/actions/workflows/lint.yml
+[test-badge]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/test.yml/badge.svg
+[test-url]: https://github.com/mateuszsokola/2048-in-react/actions/workflows/test.yml
+[issues-badge]: https://img.shields.io/github/issues/mateuszsokola/2048-in-react
+[issues-url]: https://github.com/mateuszsokola/2048-in-react/issues
+[typescript-badge]: https://badges.frapsoft.com/typescript/code/typescript.svg?v=101
+[typescript-url]: https://github.com/microsoft/TypeScript
