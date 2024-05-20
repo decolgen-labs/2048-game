@@ -12,11 +12,6 @@ export type Configuration = {
 export const APP_NAME = "starkarcade-2048";
 const GameScreen = () => {
   const { address, sound } = useWalletContext();
-  const [config, setConfig] = useLocalStorage<Configuration>(APP_NAME, {
-    bestScore: 0,
-    size: 4,
-  });
-
   return (
     <>
       {address ? (

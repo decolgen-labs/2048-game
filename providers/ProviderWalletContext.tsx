@@ -51,7 +51,6 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
 
   const [sound, setSound] = React.useState(config.sound);
   const { connect, connectors, connector } = useConnect();
-  // When User finish Connect => Start new Game => Create Board
 
   /// Custom
   const connectWallet = async (index: number) => {
