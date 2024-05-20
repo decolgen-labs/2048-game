@@ -9,6 +9,7 @@ type State = {
 };
 type Action =
   | { type: "update_board"; boardData: number[][] }
+  | { type: "config_size"; size: number }
   | { type: "clean_up" }
   | { type: "up" }
   | { type: "down" }
@@ -34,6 +35,13 @@ export default function gameReducer(
         ...state,
         board: boardData,
         hasChanged: false,
+      };
+    }
+    case "config_size": {
+      const { size } = action;
+      return {
+        ...state,
+        size,
       };
     }
     case "up": {

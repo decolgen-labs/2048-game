@@ -26,22 +26,11 @@ export default function ModalConnectWallet({ isOpen, onClose }: IProps) {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent
-        borderRadius="32px"
         margin={{ md: 0, base: 4 }}
-        _before={{
-          content: '""',
-          position: "absolute",
-          inset: 0,
-          zIndex: -1,
-          borderRadius: "32px",
-          padding: "2px",
-          background: "gradient.100",
-          " -webkit-mask":
-            " linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          "  -webkit-mask-composite": "xor",
-          " mask-composite": "exclude",
-        }}
+        background="#0B2544"
+        border="2px solid #40E9F1"
         position="relative"
+        color="#E4E8FF"
       >
         <HStack
           justifyContent="space-between"

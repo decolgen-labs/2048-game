@@ -1,12 +1,4 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useEffect,
-  useReducer,
-} from "react";
-import { isNil, throttle } from "lodash";
-import { mergeAnimationDuration } from "@/constants";
+import { PropsWithChildren, createContext, useEffect, useReducer } from "react";
 
 import gameReducer, { initialState } from "@/reducers/game-reducer";
 import { getBoardData, startGameSocket } from "@/config/socket_karas";
@@ -18,6 +10,7 @@ export const GameContext = createContext({
   moveTiles: (_: MoveDirection) => {},
   getTiles: () => [] as any,
   startGame: () => {},
+  configNewSize: (size: number) => {},
 });
 
 export default function GameProvider({ children }: PropsWithChildren) {
@@ -33,17 +26,14 @@ export default function GameProvider({ children }: PropsWithChildren) {
     );
   };
 
-  // const moveTiles = useCallback(
-  //   throttle(
-  //     (type: MoveDirection) => dispatch({ type }),
-  //     mergeAnimationDuration * 1.05,
-  //     { trailing: false },
-  //   ),
-  //   [dispatch],
-  // );
   const moveTiles = (type: MoveDirection) => {
     dispatch({ type });
   };
+
+  const configNewSize = (size: number) => {
+    dispatch({ type: "config_size", size });
+  };
+
   const startGame = async () => {
     startGameSocket(4);
     const data = await getBoardData();
@@ -74,6 +64,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
         getTiles,
         moveTiles,
         startGame,
+        configNewSize,
       }}
     >
       {children}

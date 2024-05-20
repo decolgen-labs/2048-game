@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import ModalConnectWallet from "./ModalConnectWallet";
-import BackgroudImage from "@/public/assets/btn/play_btn.svg";
+
 import StarknetIcon from "@/public/assets/generals/stark.svg";
 
 const ConnectWallet = ({ sx }: { sx?: ButtonProps }) => {

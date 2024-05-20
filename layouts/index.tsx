@@ -14,12 +14,13 @@ const GameScreen = () => {
   const { address, sound } = useWalletContext();
   const tickRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
-    if (tickRef.current && sound) {
+    if (tickRef.current) {
       if (sound) {
         tickRef.current.volume = 1;
-        console.log("Now Ref", tickRef.current.volume);
+        console.log("Turn On", sound);
       } else {
         tickRef.current.volume = 0;
+        console.log("Turn OFF", sound);
       }
     }
   }, [sound, tickRef]);

@@ -10,6 +10,7 @@ import { colors } from "@/themes";
 import BlockConner from "@/components/BlockCorner";
 import SoundOnIcon from "@/public/assets/generals/sound_on.svg";
 import SoundOffIcon from "@/public/assets/generals/sound_off.svg";
+import ConfigSize from "@/components/Input/ConfigSize";
 interface IProps {
   size: number;
   onChangeSize: (newSize: number) => void;
@@ -47,7 +48,7 @@ const StartScreen = ({}: IProps) => {
           width={224}
           height={72}
         />
-
+        <ConfigSize />
         <ConnectWallet />
 
         <BlockConner top={0} left={0} rotate={0} />
