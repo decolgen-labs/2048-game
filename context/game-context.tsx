@@ -1,7 +1,11 @@
 import { PropsWithChildren, createContext, useEffect, useReducer } from "react";
 
 import gameReducer, { initialState } from "@/reducers/game-reducer";
-import { getBoardData, startGameSocket } from "@/config/socket_karas";
+import {
+  getBoardData,
+  getGamePoint,
+  startGameSocket,
+} from "@/config/socket_karas";
 
 export type MoveDirection = "up" | "down" | "left" | "right";
 
@@ -11,6 +15,7 @@ export const GameContext = createContext({
   getTiles: () => [] as any,
   startGame: () => {},
   configNewSize: (size: number) => {},
+  gameState: initialState,
 });
 
 export default function GameProvider({ children }: PropsWithChildren) {
@@ -35,23 +40,27 @@ export default function GameProvider({ children }: PropsWithChildren) {
   };
 
   const startGame = async () => {
-    startGameSocket(4);
+    startGameSocket(gameState.size);
     const data = await getBoardData();
 
     dispatch({
       type: "update_board",
       boardData: data,
     });
-    console.log("First Run", gameState.board);
   };
   useEffect(() => {
     async function updateInfo() {
       if (gameState.hasChanged) {
         const data = await getBoardData();
-        console.log("data cai WTF", data);
+        const point = await getGamePoint();
+        console.log("Current Game Point", point);
         dispatch({
           type: "update_board",
           boardData: data,
+        });
+        dispatch({
+          type: "update_point",
+          point: point.point,
         });
       }
     }
@@ -65,6 +74,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
         moveTiles,
         startGame,
         configNewSize,
+        gameState,
       }}
     >
       {children}

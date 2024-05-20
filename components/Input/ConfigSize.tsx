@@ -1,6 +1,13 @@
 import { GameContext } from "@/context/game-context";
 import { MAX_SIZE_BOARD, MIN_SIZE_BOARD } from "@/themes/constants";
-import { Box, Text, useNumberInput } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Input,
+  Text,
+  useNumberInput,
+} from "@chakra-ui/react";
 import React, { useContext } from "react";
 
 const ConfigSize = () => {
@@ -8,12 +15,11 @@ const ConfigSize = () => {
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
-      defaultValue: 1,
+      defaultValue: MIN_SIZE_BOARD,
       min: MIN_SIZE_BOARD,
       max: MAX_SIZE_BOARD,
       onChange: (value) => {
-        // configNewSize(value);
-        console.log("");
+        configNewSize(parseInt(value));
       },
     });
 
@@ -24,6 +30,37 @@ const ConfigSize = () => {
   return (
     <Box>
       <Text>Size</Text>
+      <HStack bg="#071823">
+        <Button
+          variant="unstyled"
+          {...inc}
+          color="#40E9F1"
+          fontWeight="bold"
+          fontSize="lg"
+        >
+          +
+        </Button>
+        <Input
+          {...input}
+          userSelect="none"
+          border="none"
+          isReadOnly
+          sx={{
+            width: "50px",
+            color: "#40E9F1",
+            fontWeight: "bold",
+          }}
+        />
+        <Button
+          variant="unstyled"
+          {...dec}
+          color="#40E9F1"
+          fontWeight="bold"
+          fontSize="lg"
+        >
+          -
+        </Button>
+      </HStack>
     </Box>
   );
 };

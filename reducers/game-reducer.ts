@@ -10,6 +10,7 @@ type State = {
 type Action =
   | { type: "update_board"; boardData: number[][] }
   | { type: "config_size"; size: number }
+  | { type: "update_point"; point: number }
   | { type: "clean_up" }
   | { type: "up" }
   | { type: "down" }
@@ -30,7 +31,6 @@ export default function gameReducer(
   switch (action.type) {
     case "update_board": {
       const { boardData } = action;
-      console.log("????", boardData);
       return {
         ...state,
         board: boardData,
@@ -44,19 +44,24 @@ export default function gameReducer(
         size,
       };
     }
+    case "update_point": {
+      const { point } = action;
+      return {
+        ...state,
+        score: point,
+      };
+    }
     case "up": {
-      let { score } = state;
-      console.log("Up");
       senderCommand("up");
       return {
         ...state,
-        score,
+
         hasChanged: true,
       };
     }
     case "down": {
       senderCommand("down");
-      console.log("down");
+
       return {
         ...state,
         hasChanged: true,
@@ -64,7 +69,7 @@ export default function gameReducer(
     }
     case "left": {
       senderCommand("left");
-      console.log("left");
+
       return {
         ...state,
         hasChanged: true,
@@ -72,7 +77,7 @@ export default function gameReducer(
     }
     case "right": {
       senderCommand("right");
-      console.log("right");
+
       return {
         ...state,
         hasChanged: true,

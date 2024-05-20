@@ -45,3 +45,15 @@ export function getBoardData(): Promise<number[][]> {
     });
   });
 }
+
+type GetPointData = {
+  point: number;
+  claimable: boolean;
+};
+export function getGamePoint(): Promise<GetPointData> {
+  return new Promise((resolve) => {
+    socketGame2048.on("game-point", (data) => {
+      resolve(data);
+    });
+  });
+}

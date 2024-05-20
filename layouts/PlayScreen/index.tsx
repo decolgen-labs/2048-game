@@ -1,16 +1,17 @@
 "use client";
 
-import Board from "@/components/board";
+import GameBoard from "@/components/GameBoard";
+
 import Score from "@/components/score";
 import styles from "@/styles/index.module.css";
+import { VStack } from "@chakra-ui/react";
 const PlayScreen = () => {
   return (
     <div className={styles.twenty48}>
-      <h1>2048</h1>
       <Score />
-      <main>
-        <Board />
-      </main>
+      <VStack>
+        <GameBoard />
+      </VStack>
     </div>
   );
 };

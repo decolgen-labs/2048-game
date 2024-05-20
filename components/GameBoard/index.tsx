@@ -1,15 +1,18 @@
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
-
-import styles from "@/styles/board.module.css";
-
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { GameContext } from "@/context/game-context";
-import MobileSwiper, { SwipeInput } from "./mobile-swiper";
-import GridWrapper from "./Grid/GridWrapper";
+
 import { GRID_SIZE, SPACING } from "@/utils/constants";
 import { calcTileSize } from "@/utils/calculate";
-import Cell from "./Grid/Cell";
+import MobileSwiper, { SwipeInput } from "../mobile-swiper";
+import GridWrapper from "../Grid/GridWrapper";
 
-export default function Board() {
+const GameBoard = () => {
   const { moveTiles, startGame, gameState } = useContext(GameContext);
   const initialized = useRef(false);
   const [{ width: tileWidth, height: tileHeight }, setTileSize] = useState(() =>
@@ -79,9 +82,9 @@ export default function Board() {
         height={GRID_SIZE}
         width={GRID_SIZE}
         spacing={SPACING}
-      >
-        <Cell />
-      </GridWrapper>
+      ></GridWrapper>
     </MobileSwiper>
   );
-}
+};
+
+export default GameBoard;
