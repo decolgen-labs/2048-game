@@ -11,9 +11,11 @@ import { GRID_SIZE, SPACING } from "@/utils/constants";
 import { calcTileSize } from "@/utils/calculate";
 import MobileSwiper, { SwipeInput } from "../mobile-swiper";
 import GridWrapper from "../Grid/GridWrapper";
+import Tile from "./Tile";
+import { Box, Grid } from "@chakra-ui/react";
 
 const GameBoard = () => {
-  const { moveTiles, startGame, gameState } = useContext(GameContext);
+  const { moveTiles, startGame, gameState, getTiles } = useContext(GameContext);
   const initialized = useRef(false);
   const [{ width: tileWidth, height: tileHeight }, setTileSize] = useState(() =>
     calcTileSize(GRID_SIZE, gameState.size, gameState.size, SPACING),
@@ -77,12 +79,37 @@ const GameBoard = () => {
   return (
     <MobileSwiper onSwipe={handleSwipe}>
       <GridWrapper
+        sx={{
+          mb: 8,
+          position: "relative",
+        }}
         rows={gameState.size}
         cols={gameState.size}
         height={GRID_SIZE}
         width={GRID_SIZE}
         spacing={SPACING}
-      ></GridWrapper>
+      >
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          background="transparent"
+          blockSize="100%"
+          inlineSize="100%"
+          as={Grid}
+          gridTemplateColumns={`repeat(${gameState.size}, 1fr)`}
+          gridTemplateRows={`repeat(${gameState.size}, 1fr)`}
+        >
+          {getTiles().map(({ row, col, value }) => (
+            <Tile
+              key={`${row}-${col}`}
+              value={value}
+              height={tileHeight}
+              width={tileWidth}
+            />
+          ))}
+        </Box>
+      </GridWrapper>
     </MobileSwiper>
   );
 };

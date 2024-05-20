@@ -1,18 +1,26 @@
 "use client";
 
 import GameBoard from "@/components/GameBoard";
-
+import Image from "next/image";
 import Score from "@/components/score";
-import styles from "@/styles/index.module.css";
-import { VStack } from "@chakra-ui/react";
+
+import { Flex, VStack } from "@chakra-ui/react";
 const PlayScreen = () => {
   return (
-    <div className={styles.twenty48}>
-      <Score />
-      <VStack>
-        <GameBoard />
+    <>
+      <VStack height="100vh" justifyContent="center">
+        <Flex flexDirection="column">
+          <Score />
+          <GameBoard />
+          <Image
+            src="/assets/generals/2048_logo.svg"
+            alt="2048 Logo"
+            width={379}
+            height={120}
+          />
+        </Flex>
       </VStack>
-    </div>
+    </>
   );
 };
 

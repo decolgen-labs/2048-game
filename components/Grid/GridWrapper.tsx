@@ -1,5 +1,5 @@
 import { createIndexArray } from "@/utils/calculate";
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 import React, { useMemo } from "react";
 import Cell from "./Cell";
 import { convertHex } from "@/utils/convertHex";
@@ -10,6 +10,7 @@ interface IProps {
   height: number;
   spacing: number;
   children?: React.ReactNode;
+  sx?: BoxProps;
 }
 const GridWrapper = ({
   rows,
@@ -18,6 +19,7 @@ const GridWrapper = ({
   height,
   spacing,
   children,
+  sx,
 }: IProps) => {
   const Cells = useMemo(() => {
     const cells = createIndexArray(rows * cols);
@@ -31,10 +33,11 @@ const GridWrapper = ({
       width={width}
       height={height}
       display="grid"
-      padding={spacing}
+      padding={`${spacing}px`}
       gridTemplateColumns={`repeat(${cols}, 1fr)`}
       gridTemplateRows={`repeat(${rows}, 1fr)`}
-      gap={spacing}
+      gridGap={`${spacing}px`}
+      {...sx}
     >
       {Cells}
       {children}
