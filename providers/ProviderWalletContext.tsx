@@ -81,7 +81,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
           {
             address: addressWallet,
             signature: signature,
-            rpc: RPC_VALUE.RPC_MAINNET,
+            rpc: RPC_VALUE.RPC_TESTNET,
           },
         );
         setAddress(addressWallet);
