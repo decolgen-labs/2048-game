@@ -38,7 +38,11 @@ interface Configuration {
 export const WalletContext = createContext<IWalletConnectionProps>(initalValue);
 
 const ProviderWalletContext = ({ children }: PropsWithChildren) => {
-  const { address: addressWallet, status: statusWallet } = useAccount();
+  const {
+    address: addressWallet,
+    status: statusWallet,
+    account,
+  } = useAccount();
   const { startGame } = useContext(GameContext);
   const [config, setConfig] = useSessionStorage<Configuration>(
     "stark_2048_wallet",
@@ -58,35 +62,33 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   const connectWallet = async (index: number) => {
     await connect({ connector: connectors[index] });
     try {
-      const currentAccount = await connector?.account();
-
-      if (currentAccount?.address) {
+      if (account) {
         const { data: dataSignMessage } = await axiosHandlerNoBearer.get(
           "/authentication/get-nonce",
           {
             params: {
-              address: currentAccount.address,
+              address: addressWallet,
             },
           },
         );
 
-        const signature = await currentAccount.signMessage(
+        const signature = await account.signMessage(
           dataSignMessage.data.signMessage,
         );
 
         const { data: dataToken } = await axiosHandlerNoBearer.post(
           "/authentication/token",
           {
-            address: currentAccount.address,
+            address: addressWallet,
             signature: signature,
-            rpc: RPC_VALUE.RPC_TESTNET,
+            rpc: RPC_VALUE.RPC_MAINNET,
           },
         );
-        setAddress(currentAccount.address);
+        setAddress(addressWallet);
 
         setConfig({
           ...config,
-          address: currentAccount.address,
+          address: addressWallet,
           chain_id: index,
         });
 
@@ -95,19 +97,6 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
           key: ACCESS_TOKEN,
           value: dataToken.data.token,
         });
-        const socketGame2048 = io("http://localhost:5002", {
-          transportOptions: {
-            polling: {
-              extraHeaders: {
-                Authorization: `Bearer ${dataToken.data.token}`,
-              },
-            },
-          },
-        });
-        socketGame2048.on("connect", () => {
-          console.log("Connected to the server");
-        });
-        // startGame();
       }
     } catch (error) {
       console.log("ERROR", error);

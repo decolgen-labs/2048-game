@@ -5,7 +5,7 @@ import { deserialize } from "@/utils/serialize";
 
 import { io } from "socket.io-client";
 
-const socketGame2048 = io("http://localhost:5002", {
+const socketGame2048 = io(process.env.PUBLIC_NEXT_2048, {
   transportOptions: {
     polling: {
       extraHeaders: {
@@ -13,6 +13,7 @@ const socketGame2048 = io("http://localhost:5002", {
       },
     },
   },
+  reconnection: true,
 });
 
 socketGame2048.on("connect", () => {

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import StopIcon from "@/public/assets/generals/stop.svg";
 import {
   Button,
@@ -10,11 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { GameContext } from "@/context/game-context";
-import {
-  InFoClaimPoint,
-  claimPoint,
-  getClaimPointInfo,
-} from "@/config/socket_karas";
+import { claimPoint, getClaimPointInfo } from "@/config/socket_karas";
 import { useAccount } from "@starknet-react/core";
 
 import { CONTRACT_ADDRESS } from "@/utils/constants";
@@ -23,12 +19,10 @@ const StopGame = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { score, startGame } = useContext(GameContext);
   const { account } = useAccount();
-  console.log("ACCOUNT", account);
+
   const handleClaimPoint = async () => {
     try {
-      console.log("???? Current ", account);
       if (account != undefined) {
-        console.log("???? Current 2 ", account);
         claimPoint();
         const data = await getClaimPointInfo();
         await account.execute([

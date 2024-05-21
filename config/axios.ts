@@ -3,11 +3,11 @@ import { getCookie } from "@/utils/cookie";
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 export const axiosHandlerNoBearer = axios.create({
-  baseURL: "http://localhost:8088",
+  baseURL: process.env.PUBLIC_NEXT_API,
 });
 
 export const axiosHandler = axios.create({
-  baseURL: "http://localhost:8088",
+  baseURL: process.env.PUBLIC_NEXT_API,
 });
 
 axiosHandler.interceptors.request.use(

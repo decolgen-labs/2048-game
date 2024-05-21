@@ -1,7 +1,7 @@
 export const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 export enum RPC_VALUE {
-  RPC_MAINET = "https://starknet-mainnet.public.blastapi.io",
+  RPC_MAINNET = "https://starknet-mainnet.public.blastapi.io",
   RPC_TESTNET = "https://starknet-sepolia.public.blastapi.io",
 }
 export const GRID_SIZE = 360;

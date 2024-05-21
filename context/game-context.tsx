@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useEffect, useReducer } from "react";
+import { PropsWithChildren, createContext, useReducer } from "react";
 
 import gameReducer, { initialState } from "@/reducers/game-reducer";
 import {
@@ -12,7 +12,7 @@ export type MoveDirection = "up" | "down" | "left" | "right";
 
 export const GameContext = createContext({
   score: 0,
-  moveTiles: (_: MoveDirection) => {},
+  moveTiles: (_: MoveDirection) => {}, // Flat Map Array
   getTiles: () => [] as any,
   startGame: () => {},
   configNewSize: (size: number) => {},
@@ -44,6 +44,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
     });
 
     const point = await getGamePoint();
+    console.log("Current Pont", point);
     dispatch({
       type: "update_point",
       point: point.point,
@@ -64,24 +65,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
       boardData: data,
     });
   };
-  // useEffect(() => {
-  //   async function updateInfo() {
-  //     if (gameState.hasChanged) {
-  //       const data = await getBoardData();
-  //       console.log("data", data);
-  //       const point = await getGamePoint();
-  //       dispatch({
-  //         type: "update_point",
-  //         point: point.point,
-  //       });
-  //       dispatch({
-  //         type: "update_board",
-  //         boardData: data,
-  //       });
-  //     }
-  //   }
-  //   updateInfo();
-  // }, [gameState.hasChanged]);
+
   return (
     <GameContext.Provider
       value={{
