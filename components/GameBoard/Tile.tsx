@@ -1,4 +1,4 @@
-import { getTileColor } from "@/utils/calculate";
+import { getTileColor, getTileFontSize } from "@/utils/calculate";
 import { Box } from "@chakra-ui/react";
 import React from "react";
 
@@ -14,7 +14,7 @@ const Tile = ({ value, height, width }: IProps) => {
       sx={{
         width: `${width}px`,
         height: `${height}px`,
-        fontSize: "inherit",
+        fontSize: `${getTileFontSize(width, height, value)}px`,
         fontWeight: 900,
         display: "flex",
         textAlign: "center",
@@ -23,7 +23,7 @@ const Tile = ({ value, height, width }: IProps) => {
         animationDuration: "0.18s",
         animationFillMode: "forwards",
         userSelect: "none",
-        backgroundColor: getTileColor(value),
+        background: value != 0 ? getTileColor(value) : "transparent",
         color: value > 0 ? "white" : "transparent",
       }}
     >

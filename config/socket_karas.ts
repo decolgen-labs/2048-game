@@ -6,7 +6,7 @@ import { deserialize } from "@/utils/serialize";
 import { io } from "socket.io-client";
 
 // .
-export const socketGame2048 = io("http://localhost:5002", {
+const socketGame2048 = io("http://localhost:5002", {
   transportOptions: {
     polling: {
       extraHeaders: {
@@ -16,6 +16,7 @@ export const socketGame2048 = io("http://localhost:5002", {
   },
 });
 
+export default socketGame2048;
 // Sender Action
 
 export const startGameSocket = (size: number) => {

@@ -25,3 +25,7 @@ export const calcTileSize = (
 
 // Create Index Array Function
 export const createIndexArray = (len: number) => Array.from(Array(len).keys());
+
+// Calculate Location Function
+export const calcLocation = (l: number, c: number, spacing: number) =>
+  (spacing + l) * c + spacing;

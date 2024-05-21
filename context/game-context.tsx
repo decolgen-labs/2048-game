@@ -4,6 +4,7 @@ import gameReducer, { initialState } from "@/reducers/game-reducer";
 import {
   getBoardData,
   getGamePoint,
+  senderCommand,
   startGameSocket,
 } from "@/config/socket_karas";
 
@@ -31,8 +32,22 @@ export default function GameProvider({ children }: PropsWithChildren) {
     );
   };
 
-  const moveTiles = (type: MoveDirection) => {
-    dispatch({ type });
+  const moveTiles = async (type: MoveDirection) => {
+    // dispatch({ type });
+
+    senderCommand(type);
+    const data = await getBoardData();
+    console.log("data", data);
+    dispatch({
+      type: "update_board",
+      boardData: data,
+    });
+    console.log("Game State", gameState.board);
+    const point = await getGamePoint();
+    dispatch({
+      type: "update_point",
+      point: point.point,
+    });
   };
 
   const configNewSize = (size: number) => {
@@ -42,30 +57,29 @@ export default function GameProvider({ children }: PropsWithChildren) {
   const startGame = async () => {
     startGameSocket(gameState.size);
     const data = await getBoardData();
-
     dispatch({
       type: "update_board",
       boardData: data,
     });
   };
-  useEffect(() => {
-    async function updateInfo() {
-      if (gameState.hasChanged) {
-        const data = await getBoardData();
-        const point = await getGamePoint();
-        console.log("Current Game Point", point);
-        dispatch({
-          type: "update_board",
-          boardData: data,
-        });
-        dispatch({
-          type: "update_point",
-          point: point.point,
-        });
-      }
-    }
-    updateInfo();
-  }, [gameState.hasChanged]);
+  // useEffect(() => {
+  //   async function updateInfo() {
+  //     if (gameState.hasChanged) {
+  //       const data = await getBoardData();
+  //       console.log("data", data);
+  //       const point = await getGamePoint();
+  //       dispatch({
+  //         type: "update_point",
+  //         point: point.point,
+  //       });
+  //       dispatch({
+  //         type: "update_board",
+  //         boardData: data,
+  //       });
+  //     }
+  //   }
+  //   updateInfo();
+  // }, [gameState.hasChanged]);
   return (
     <GameContext.Provider
       value={{

@@ -28,8 +28,10 @@ const ConfigSize = () => {
   const input = getInputProps();
 
   return (
-    <Box>
-      <Text>Size</Text>
+    <Box textAlign="center">
+      <Text fontWeight="bold" color="#40E9F1">
+        Size
+      </Text>
       <HStack bg="#071823">
         <Button
           variant="unstyled"

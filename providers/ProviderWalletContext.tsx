@@ -1,5 +1,5 @@
 import { axiosHandlerNoBearer } from "@/config/axios";
-import { cancelGame, socketGame2048 } from "@/config/socket_karas";
+import socketGame2048, { cancelGame } from "@/config/socket_karas";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
 

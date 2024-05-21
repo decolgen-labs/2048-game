@@ -80,7 +80,6 @@ const GameBoard = () => {
     <MobileSwiper onSwipe={handleSwipe}>
       <GridWrapper
         sx={{
-          mb: 8,
           position: "relative",
         }}
         rows={gameState.size}
@@ -94,11 +93,13 @@ const GameBoard = () => {
           top={0}
           left={0}
           background="transparent"
+          padding={`${SPACING}px`}
           blockSize="100%"
           inlineSize="100%"
           as={Grid}
           gridTemplateColumns={`repeat(${gameState.size}, 1fr)`}
           gridTemplateRows={`repeat(${gameState.size}, 1fr)`}
+          gridGap={`${SPACING}px`}
         >
           {getTiles().map(({ row, col, value }) => (
             <Tile

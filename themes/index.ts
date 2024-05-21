@@ -1,7 +1,6 @@
 import { ComponentStyleConfig, extendTheme } from "@chakra-ui/react";
 
 export const background = {
-  tile0: "transparent",
   tile2: "linear-gradient(180deg, #FA4293 0%, #DB0371 100%)",
   tile4: "linear-gradient(180deg, #D942E2 0%, #9502B9 100%)",
   tile8: "linear-gradient(180deg, #C49BFE 0%, #5814C5 100%)",

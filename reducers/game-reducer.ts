@@ -52,6 +52,7 @@ export default function gameReducer(
       };
     }
     case "up": {
+      console.log("UP");
       senderCommand("up");
       return {
         ...state,
@@ -60,6 +61,7 @@ export default function gameReducer(
       };
     }
     case "down": {
+      console.log("down");
       senderCommand("down");
 
       return {
@@ -68,14 +70,15 @@ export default function gameReducer(
       };
     }
     case "left": {
+      console.log("left");
       senderCommand("left");
-
       return {
         ...state,
         hasChanged: true,
       };
     }
     case "right": {
+      console.log("right");
       senderCommand("right");
 
       return {

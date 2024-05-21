@@ -1,8 +1,9 @@
-import { createIndexArray } from "@/utils/calculate";
 import { Box, BoxProps } from "@chakra-ui/react";
 import React, { useMemo } from "react";
-import Cell from "./Cell";
+
 import { convertHex } from "@/utils/convertHex";
+import { createIndexArray } from "@/utils/calculate";
+import Cell from "./Cell";
 interface IProps {
   rows: number;
   cols: number;
