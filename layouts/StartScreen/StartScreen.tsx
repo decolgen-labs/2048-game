@@ -8,16 +8,14 @@ import ConnectWallet from "@/components/ConnectWallet";
 import { convertHex } from "@/utils/convertHex";
 import { colors } from "@/themes";
 import BlockConner from "@/components/BlockCorner";
-import SoundOnIcon from "@/public/assets/generals/sound_on.svg";
-import SoundOffIcon from "@/public/assets/generals/sound_off.svg";
+
 import ConfigSize from "@/components/Input/ConfigSize";
+import ToggleSound from "@/components/GameStats/ToggleSound";
 interface IProps {
   size: number;
   onChangeSize: (newSize: number) => void;
 }
 const StartScreen = ({}: IProps) => {
-  const { sound, handleToggleSound } = useWalletContext();
-
   return (
     <VStack height="full" justifyContent="center">
       <Box
@@ -29,19 +27,13 @@ const StartScreen = ({}: IProps) => {
         position="relative"
         background={convertHex(colors.primary[100], 0.5)}
       >
-        <Button
-          variant="icon_btn"
+        <ToggleSound
           sx={{
             position: "absolute",
             top: 5,
             right: "10px",
           }}
-          onClick={async () => {
-            handleToggleSound();
-          }}
-        >
-          <Icon as={sound ? SoundOnIcon : SoundOffIcon} height={6} width={6} />
-        </Button>
+        />
         <Image
           src="/assets/generals/2048_logo.svg"
           alt="2048 Logo"
