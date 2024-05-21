@@ -55,8 +55,11 @@ export default function GameProvider({ children }: PropsWithChildren) {
   };
 
   const startGame = async () => {
+    dispatch({ type: "update_point", point: 0 });
     startGameSocket(gameState.size);
+
     const data = await getBoardData();
+    console.log("Now RUN Test Start Game", data);
     dispatch({
       type: "update_board",
       boardData: data,

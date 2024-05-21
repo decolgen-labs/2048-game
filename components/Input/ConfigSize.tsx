@@ -11,11 +11,11 @@ import {
 import React, { useContext } from "react";
 
 const ConfigSize = () => {
-  const { configNewSize } = useContext(GameContext);
+  const { configNewSize, gameState } = useContext(GameContext);
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
-      defaultValue: MIN_SIZE_BOARD,
+      defaultValue: gameState.size,
       min: MIN_SIZE_BOARD,
       max: MAX_SIZE_BOARD,
       onChange: (value) => {

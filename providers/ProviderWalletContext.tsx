@@ -1,5 +1,6 @@
 import { axiosHandlerNoBearer } from "@/config/axios";
 import socketGame2048, { cancelGame } from "@/config/socket_karas";
+import { GameContext } from "@/context/game-context";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
 
@@ -37,7 +38,7 @@ export const WalletContext = createContext<IWalletConnectionProps>(initalValue);
 
 const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   const { address: addressWallet, status: statusWallet } = useAccount();
-
+  const { startGame } = useContext(GameContext);
   const [config, setConfig] = useSessionStorage<Configuration>(
     "stark_2048_wallet",
     {
@@ -86,10 +87,6 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
           expires: "1d",
           key: ACCESS_TOKEN,
           value: dataToken.data.token,
-        });
-
-        socketGame2048.on("connect", () => {
-          console.log("Connected to the server");
         });
       }
     } catch (error) {}

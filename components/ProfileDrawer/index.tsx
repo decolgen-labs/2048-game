@@ -18,6 +18,7 @@ import { useBalance } from "@starknet-react/core";
 import React from "react";
 import CopyClipBoard from "../CopyClipBoard/CopyClipBoard";
 import LogoutIcon from "@/public/assets/generals/logout.svg";
+
 interface IProps {
   isOpen: boolean;
   onClose: () => void;

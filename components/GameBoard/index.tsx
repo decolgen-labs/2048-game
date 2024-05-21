@@ -13,6 +13,7 @@ import MobileSwiper, { SwipeInput } from "../mobile-swiper";
 import GridWrapper from "../Grid/GridWrapper";
 import Tile from "./Tile";
 import { Box, Grid } from "@chakra-ui/react";
+import socketGame2048 from "@/config/socket_karas";
 
 const GameBoard = () => {
   const { moveTiles, startGame, gameState, getTiles } = useContext(GameContext);
@@ -41,6 +42,9 @@ const GameBoard = () => {
     },
     [moveTiles],
   );
+  socketGame2048.on("connect", () => {
+    console.log("Connected to the server");
+  });
 
   const handleSwipe = useCallback(
     ({ deltaX, deltaY }: SwipeInput) => {

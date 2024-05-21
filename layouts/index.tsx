@@ -17,7 +17,7 @@ const GameScreen = () => {
     if (tickRef.current) {
       if (sound) {
         tickRef.current.volume = 1;
-        console.log("Turn On", sound);
+        tickRef.current.play();
       } else {
         tickRef.current.volume = 0;
         console.log("Turn OFF", sound);

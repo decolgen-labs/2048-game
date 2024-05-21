@@ -11,7 +11,6 @@ type Action =
   | { type: "update_board"; boardData: number[][] }
   | { type: "config_size"; size: number }
   | { type: "update_point"; point: number }
-  | { type: "clean_up" }
   | { type: "up" }
   | { type: "down" }
   | { type: "left" }

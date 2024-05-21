@@ -16,7 +16,9 @@ const socketGame2048 = io("http://localhost:5002", {
   },
 });
 
-export default socketGame2048;
+socketGame2048.on("connect", () => {
+  console.log("Connected to the server");
+});
 // Sender Action
 
 export const startGameSocket = (size: number) => {
@@ -58,3 +60,18 @@ export function getGamePoint(): Promise<GetPointData> {
     });
   });
 }
+
+type InFoClaimPoint = {
+  userAddress: string;
+  point: number;
+  timestamp: number;
+  proof: string[];
+};
+export function getClaimPointInfo(): Promise<InFoClaimPoint> {
+  return new Promise((resolve) => {
+    socketGame2048.on("claim-point", (data) => {
+      resolve(data);
+    });
+  });
+}
+export default socketGame2048;
