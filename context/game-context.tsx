@@ -37,12 +37,12 @@ export default function GameProvider({ children }: PropsWithChildren) {
 
     senderCommand(type);
     const data = await getBoardData();
-    console.log("data", data);
+
     dispatch({
       type: "update_board",
       boardData: data,
     });
-    console.log("Game State", gameState.board);
+
     const point = await getGamePoint();
     dispatch({
       type: "update_point",
@@ -55,11 +55,10 @@ export default function GameProvider({ children }: PropsWithChildren) {
   };
 
   const startGame = async () => {
-    dispatch({ type: "update_point", point: 0 });
     startGameSocket(gameState.size);
 
     const data = await getBoardData();
-    console.log("Now RUN Test Start Game", data);
+
     dispatch({
       type: "update_board",
       boardData: data,

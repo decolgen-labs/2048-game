@@ -13,12 +13,15 @@ import {
   Skeleton,
   Divider,
   Icon,
+  IconButton,
+  Button,
 } from "@chakra-ui/react";
-import { useBalance } from "@starknet-react/core";
+import { useBalance, useContractRead } from "@starknet-react/core";
 import React from "react";
 import CopyClipBoard from "../CopyClipBoard/CopyClipBoard";
 import LogoutIcon from "@/public/assets/generals/logout.svg";
-
+import RefreshIcon from "@/public/assets/generals/refresh.svg";
+import ABIPoint from "@/abis/claim-point.json";
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -28,8 +31,19 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
     token: CONTRACT_ADDRESS.STRK,
     address: address ? address : "",
+  });
+  const {
+    data: dataPoint,
+    isLoading: isLoadingPoint,
+    refetch: refetchDataPoint,
+  } = useContractRead({
+    functionName: "getUserPoint",
+    abi: ABIPoint,
+    args: [address ? address : ""],
+    address: CONTRACT_ADDRESS.CLAIM_POINT,
     watch: true,
   });
+
   return (
     <>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
@@ -46,6 +60,13 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
             >
               <HStack width="fit-content" borderRight="2px solid" pr={2}>
                 <Text>Your Point:</Text>
+                <Box>
+                  {!isLoadingPoint ? (
+                    dataPoint?.toString()
+                  ) : (
+                    <Skeleton>00</Skeleton>
+                  )}
+                </Box>
               </HStack>
               <HStack width="fit-content">
                 <Text>STRK:</Text>
@@ -58,6 +79,12 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
                 </Box>
               </HStack>
             </HStack>
+            <Button
+              onClick={async () => await refetchDataPoint()}
+              leftIcon={<Icon as={RefreshIcon} />}
+            >
+              Refresh Data
+            </Button>
             <HStack>
               <Text>{ellipseMiddle(address || "", 8, 8)}</Text>
               <CopyClipBoard aria-label="copy icon" context={address || ""} />

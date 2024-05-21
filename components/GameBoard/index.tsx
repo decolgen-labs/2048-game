@@ -14,6 +14,8 @@ import GridWrapper from "../Grid/GridWrapper";
 import Tile from "./Tile";
 import { Box, Grid } from "@chakra-ui/react";
 import socketGame2048 from "@/config/socket_karas";
+import ModalGameClaim from "../Modal/ModalGameClaim";
+import { canGameContinue } from "@/utils/rule";
 
 const GameBoard = () => {
   const { moveTiles, startGame, gameState, getTiles } = useContext(GameContext);
@@ -42,9 +44,6 @@ const GameBoard = () => {
     },
     [moveTiles],
   );
-  socketGame2048.on("connect", () => {
-    console.log("Connected to the server");
-  });
 
   const handleSwipe = useCallback(
     ({ deltaX, deltaY }: SwipeInput) => {
@@ -66,7 +65,10 @@ const GameBoard = () => {
   );
 
   useEffect(() => {
-    if (initialized.current === false) {
+    if (initialized.current === false && gameState.board.length === 0) {
+      socketGame2048.on("connect", () => {
+        console.log("Connected to the server");
+      });
       startGame();
       initialized.current = true;
     }
@@ -81,41 +83,50 @@ const GameBoard = () => {
   }, [handleKeyDown]);
 
   return (
-    <MobileSwiper onSwipe={handleSwipe}>
-      <GridWrapper
-        sx={{
-          position: "relative",
-        }}
-        rows={gameState.size}
-        cols={gameState.size}
-        height={GRID_SIZE}
-        width={GRID_SIZE}
-        spacing={SPACING}
-      >
-        <Box
-          position="absolute"
-          top={0}
-          left={0}
-          background="transparent"
-          padding={`${SPACING}px`}
-          blockSize="100%"
-          inlineSize="100%"
-          as={Grid}
-          gridTemplateColumns={`repeat(${gameState.size}, 1fr)`}
-          gridTemplateRows={`repeat(${gameState.size}, 1fr)`}
-          gridGap={`${SPACING}px`}
+    <>
+      <MobileSwiper onSwipe={handleSwipe}>
+        <GridWrapper
+          sx={{
+            position: "relative",
+          }}
+          rows={gameState.size}
+          cols={gameState.size}
+          height={GRID_SIZE}
+          width={GRID_SIZE}
+          spacing={SPACING}
         >
-          {getTiles().map(({ row, col, value }) => (
-            <Tile
-              key={`${row}-${col}`}
-              value={value}
-              height={tileHeight}
-              width={tileWidth}
-            />
-          ))}
-        </Box>
-      </GridWrapper>
-    </MobileSwiper>
+          <Box
+            position="absolute"
+            top={0}
+            left={0}
+            background="transparent"
+            padding={`${SPACING}px`}
+            blockSize="100%"
+            inlineSize="100%"
+            as={Grid}
+            gridTemplateColumns={`repeat(${gameState.size}, 1fr)`}
+            gridTemplateRows={`repeat(${gameState.size}, 1fr)`}
+            gridGap={`${SPACING}px`}
+          >
+            {getTiles().map(({ row, col, value }) => (
+              <Tile
+                key={`${row}-${col}`}
+                value={value}
+                height={tileHeight}
+                width={tileWidth}
+              />
+            ))}
+          </Box>
+        </GridWrapper>
+      </MobileSwiper>
+
+      {!canGameContinue(gameState.board) && (
+        <ModalGameClaim
+          isOpen={!canGameContinue(gameState.board)}
+          onClose={() => {}}
+        />
+      )}
+    </>
   );
 };
 

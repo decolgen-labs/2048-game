@@ -1,0 +1,188 @@
+[
+  {
+    "type": "impl",
+    "name": "PoolPoint",
+    "interface_name": "lottery::point::interface::IPoolPoint"
+  },
+  {
+    "type": "enum",
+    "name": "core::bool",
+    "variants": [
+      {
+        "name": "False",
+        "type": "()"
+      },
+      {
+        "name": "True",
+        "type": "()"
+      }
+    ]
+  },
+  {
+    "type": "interface",
+    "name": "lottery::point::interface::IPoolPoint",
+    "items": [
+      {
+        "type": "function",
+        "name": "rewardPoint",
+        "inputs": [
+          {
+            "name": "amount",
+            "type": "core::integer::u128"
+          },
+          {
+            "name": "timestamp",
+            "type": "core::integer::u128"
+          },
+          {
+            "name": "proof",
+            "type": "core::array::Array::<core::felt252>"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "givePoint",
+        "inputs": [
+          {
+            "name": "addressReceive",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "amount",
+            "type": "core::integer::u128"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "setPermission",
+        "inputs": [
+          {
+            "name": "address",
+            "type": "core::starknet::contract_address::ContractAddress"
+          },
+          {
+            "name": "permission",
+            "type": "core::bool"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "setSigner",
+        "inputs": [
+          {
+            "name": "newSigner",
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "outputs": [],
+        "state_mutability": "external"
+      },
+      {
+        "type": "function",
+        "name": "getUserPoint",
+        "inputs": [
+          {
+            "name": "address",
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "outputs": [
+          {
+            "type": "core::integer::u128"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "getOwner",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      },
+      {
+        "type": "function",
+        "name": "getSigner",
+        "inputs": [],
+        "outputs": [
+          {
+            "type": "core::starknet::contract_address::ContractAddress"
+          }
+        ],
+        "state_mutability": "view"
+      }
+    ]
+  },
+  {
+    "type": "constructor",
+    "name": "constructor",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "signer",
+        "type": "core::starknet::contract_address::ContractAddress"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "lottery::point::point::Point::AddPoint",
+    "kind": "struct",
+    "members": [
+      {
+        "name": "key",
+        "type": "core::starknet::contract_address::ContractAddress",
+        "kind": "key"
+      },
+      {
+        "name": "point",
+        "type": "core::integer::u128",
+        "kind": "data"
+      },
+      {
+        "name": "timestamp",
+        "type": "core::integer::u128",
+        "kind": "data"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+    "kind": "enum",
+    "variants": []
+  },
+  {
+    "type": "event",
+    "name": "lottery::point::point::Point::Event",
+    "kind": "enum",
+    "variants": [
+      {
+        "name": "AddPoint",
+        "type": "lottery::point::point::Point::AddPoint",
+        "kind": "nested"
+      },
+      {
+        "name": "ReentrancyEvent",
+        "type": "openzeppelin::security::reentrancyguard::ReentrancyGuardComponent::Event",
+        "kind": "flat"
+      }
+    ]
+  }
+]

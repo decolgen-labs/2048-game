@@ -5,7 +5,6 @@ import { deserialize } from "@/utils/serialize";
 
 import { io } from "socket.io-client";
 
-// .
 const socketGame2048 = io("http://localhost:5002", {
   transportOptions: {
     polling: {
@@ -39,7 +38,9 @@ export const senderCommand = (direction: MoveDirection) => {
 export const claimPoint = () => {
   socketGame2048.emit("claimPoint");
 };
-
+export const disconnectSocket = () => {
+  socketGame2048.disconnect();
+};
 export function getBoardData(): Promise<number[][]> {
   return new Promise((resolve) => {
     socketGame2048.on("board-updated", (data) => {
@@ -61,7 +62,7 @@ export function getGamePoint(): Promise<GetPointData> {
   });
 }
 
-type InFoClaimPoint = {
+export type InFoClaimPoint = {
   userAddress: string;
   point: number;
   timestamp: number;

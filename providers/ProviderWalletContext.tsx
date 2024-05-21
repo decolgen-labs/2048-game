@@ -1,5 +1,5 @@
 import { axiosHandlerNoBearer } from "@/config/axios";
-import socketGame2048, { cancelGame } from "@/config/socket_karas";
+import { cancelGame, disconnectSocket } from "@/config/socket_karas";
 import { GameContext } from "@/context/game-context";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
@@ -13,6 +13,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
+import { io } from "socket.io-client";
 interface IWalletConnectionProps {
   connectWallet: (index: number) => void;
   disconnectWallet: () => void;
@@ -56,9 +57,9 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   /// Custom
   const connectWallet = async (index: number) => {
     await connect({ connector: connectors[index] });
-
     try {
       const currentAccount = await connector?.account();
+
       if (currentAccount?.address) {
         const { data: dataSignMessage } = await axiosHandlerNoBearer.get(
           "/authentication/get-nonce",
@@ -78,18 +79,39 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
           {
             address: currentAccount.address,
             signature: signature,
-            rpc: RPC_VALUE.RPC_MAINET,
+            rpc: RPC_VALUE.RPC_TESTNET,
           },
         );
+        setAddress(currentAccount.address);
 
-        setChainId(index);
+        setConfig({
+          ...config,
+          address: currentAccount.address,
+          chain_id: index,
+        });
+
         setCookie({
           expires: "1d",
           key: ACCESS_TOKEN,
           value: dataToken.data.token,
         });
+        const socketGame2048 = io("http://localhost:5002", {
+          transportOptions: {
+            polling: {
+              extraHeaders: {
+                Authorization: `Bearer ${dataToken.data.token}`,
+              },
+            },
+          },
+        });
+        socketGame2048.on("connect", () => {
+          console.log("Connected to the server");
+        });
+        // startGame();
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("ERROR", error);
+    }
   };
 
   const handleToggleSound = async () => {
@@ -101,13 +123,17 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
     setAddress(undefined);
     setChainId(undefined);
     deleteCookie(ACCESS_TOKEN);
+    disconnectSocket();
   };
   useEffect(() => {
-    if (addressWallet && addressWallet !== address && chain_id != undefined) {
-      setAddress(addressWallet);
-      setConfig({ ...config, address: addressWallet, chain_id: chain_id });
-    }
-  }, [addressWallet, chain_id]);
+    const handleChangeWallet = async () => {
+      if (addressWallet && addressWallet !== address && chain_id != undefined) {
+        cancelGame();
+        await connectWallet(chain_id);
+      }
+    };
+    handleChangeWallet();
+  }, [addressWallet, address]);
   useEffect(() => {
     const handleReConenct = async () => {
       if (address && statusWallet === "disconnected" && chain_id != undefined) {
@@ -119,7 +145,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
       }
     };
     handleReConenct();
-  }, [address, chain_id]);
+  }, [statusWallet, addressWallet]);
 
   return (
     <WalletContext.Provider
