@@ -20,7 +20,6 @@ const GameScreen = () => {
         tickRef.current.play();
       } else {
         tickRef.current.volume = 0;
-        console.log("Turn OFF", sound);
       }
     }
   }, [sound, tickRef]);
@@ -61,12 +60,12 @@ const GameScreen = () => {
         backgroundRepeat="no-repeat"
         zIndex={-1}
       />
-      <audio
+      {/* <audio
         autoPlay={sound}
         loop
         src="/assets/sounds/bg_music.mp3"
         ref={tickRef}
-      />
+      /> */}
     </Box>
   );
 };

@@ -43,7 +43,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
     status: statusWallet,
     account,
   } = useAccount();
-  const { startGame } = useContext(GameContext);
+
   const [config, setConfig] = useSessionStorage<Configuration>(
     "stark_2048_wallet",
     {
@@ -56,7 +56,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   const [chain_id, setChainId] = React.useState(config.chain_id);
 
   const [sound, setSound] = React.useState(config.sound);
-  const { connect, connectors, connector } = useConnect();
+  const { connect, connectors } = useConnect();
 
   /// Custom
   const connectWallet = async (index: number) => {
@@ -108,7 +108,6 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   };
   const disconnectWallet = () => {
     setConfig({ address: undefined, chain_id: undefined, sound: true });
-    cancelGame();
     setAddress(undefined);
     setChainId(undefined);
     deleteCookie(ACCESS_TOKEN);

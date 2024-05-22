@@ -16,6 +16,7 @@ export const GameContext = createContext({
   getTiles: () => [] as any,
   startGame: () => {},
   configNewSize: (size: number) => {},
+  cleanGame: () => {},
   gameState: initialState,
 });
 
@@ -44,7 +45,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
     });
 
     const point = await getGamePoint();
-    console.log("Current Pont", point);
+
     dispatch({
       type: "update_point",
       point: point.point,
@@ -57,13 +58,14 @@ export default function GameProvider({ children }: PropsWithChildren) {
 
   const startGame = async () => {
     startGameSocket(gameState.size);
-
     const data = await getBoardData();
-
     dispatch({
       type: "update_board",
       boardData: data,
     });
+  };
+  const cleanGame = async () => {
+    dispatch({ type: "clean_up" });
   };
 
   return (
@@ -75,6 +77,7 @@ export default function GameProvider({ children }: PropsWithChildren) {
         startGame,
         configNewSize,
         gameState,
+        cleanGame,
       }}
     >
       {children}

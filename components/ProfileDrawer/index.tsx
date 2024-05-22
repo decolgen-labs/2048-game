@@ -13,21 +13,22 @@ import {
   Skeleton,
   Divider,
   Icon,
-  IconButton,
   Button,
 } from "@chakra-ui/react";
 import { useBalance, useContractRead } from "@starknet-react/core";
-import React from "react";
+import React, { useContext } from "react";
 import CopyClipBoard from "../CopyClipBoard/CopyClipBoard";
 import LogoutIcon from "@/public/assets/generals/logout.svg";
 import RefreshIcon from "@/public/assets/generals/refresh.svg";
 import ABIPoint from "@/abis/claim-point.json";
+import { GameContext } from "@/context/game-context";
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const { address, disconnectWallet } = useWalletContext();
+  const { cleanGame } = useContext(GameContext);
   const { isLoading: isLoadingBalance, data: dataBalance } = useBalance({
     token: CONTRACT_ADDRESS.STRK,
     address: address ? address : "",
@@ -105,6 +106,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
               }}
               onClick={async () => {
                 disconnectWallet();
+                cleanGame();
               }}
             >
               <Text fontSize="lg">Logout</Text>

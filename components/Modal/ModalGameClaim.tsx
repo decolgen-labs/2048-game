@@ -18,7 +18,6 @@ const ModalGameClaim = ({ isOpen, onClose }: IProps) => {
       if (isOpen) {
         claimPoint();
         const data = await getClaimPointInfo();
-        console.log("first");
         setPointData(data);
       }
     };

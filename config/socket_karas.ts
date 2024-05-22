@@ -5,20 +5,25 @@ import { deserialize } from "@/utils/serialize";
 
 import { io } from "socket.io-client";
 
-const socketGame2048 = io(process.env.PUBLIC_NEXT_2048, {
-  transportOptions: {
-    polling: {
-      extraHeaders: {
-        Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}`,
+let socketGame2048;
+
+export const connectSocket = () => {
+  socketGame2048 = io(process.env.PUBLIC_NEXT_2048, {
+    transportOptions: {
+      polling: {
+        extraHeaders: {
+          Authorization: `Bearer ${getCookie(ACCESS_TOKEN)}`,
+        },
       },
     },
-  },
-  reconnection: true,
-});
+  });
 
-socketGame2048.on("connect", () => {
-  console.log("Connected to the server");
-});
+  socketGame2048.on("connect", () => {
+    console.log("Connected to the server");
+  });
+};
+
+connectSocket();
 // Sender Action
 
 export const startGameSocket = (size: number) => {

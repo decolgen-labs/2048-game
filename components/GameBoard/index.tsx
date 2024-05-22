@@ -7,15 +7,17 @@ import React, {
 } from "react";
 import { GameContext } from "@/context/game-context";
 
-import { GRID_SIZE, SPACING } from "@/utils/constants";
+import { ACCESS_TOKEN, GRID_SIZE, SPACING } from "@/utils/constants";
 import { calcTileSize } from "@/utils/calculate";
 import MobileSwiper, { SwipeInput } from "../mobile-swiper";
 import GridWrapper from "../Grid/GridWrapper";
 import Tile from "./Tile";
 import { Box, Grid } from "@chakra-ui/react";
-import socketGame2048 from "@/config/socket_karas";
+
 import ModalGameClaim from "../Modal/ModalGameClaim";
 import { canGameContinue } from "@/utils/rule";
+import { getCookie } from "@/utils/cookie";
+import { connectSocket } from "@/config/socket_karas";
 
 const GameBoard = () => {
   const { moveTiles, startGame, gameState, getTiles } = useContext(GameContext);
@@ -66,9 +68,9 @@ const GameBoard = () => {
 
   useEffect(() => {
     if (initialized.current === false && gameState.board.length === 0) {
-      socketGame2048.on("connect", () => {
-        console.log("Connected to the server");
-      });
+      console.log("I DOn't think you need", getCookie(ACCESS_TOKEN));
+
+      connectSocket();
       startGame();
       initialized.current = true;
     }
@@ -120,7 +122,7 @@ const GameBoard = () => {
         </GridWrapper>
       </MobileSwiper>
 
-      {!canGameContinue(gameState.board) && (
+      {!canGameContinue(gameState.board) && gameState.board.length != 0 && (
         <ModalGameClaim
           isOpen={!canGameContinue(gameState.board)}
           onClose={() => {}}
