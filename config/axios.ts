@@ -1,13 +1,13 @@
-import { ACCESS_TOKEN } from '@/utils/constants';
-import { getCookie } from '@/utils/cookie';
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { ACCESS_TOKEN } from "@/utils/constants";
+import { getCookie } from "@/utils/cookie";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 export const axiosHandlerNoBearer = axios.create({
-  baseURL: 'http://localhost:8088/',
+  baseURL: process.env.PUBLIC_NEXT_API,
 });
 
 export const axiosHandler = axios.create({
-  baseURL: 'http://localhost:8088/',
+  baseURL: process.env.PUBLIC_NEXT_API,
 });
 
 axiosHandler.interceptors.request.use(
@@ -21,7 +21,7 @@ axiosHandler.interceptors.request.use(
     }
 
     if (config.data instanceof FormData) {
-      Object.assign(config.headers, { 'Content-Type': 'multipart/form-data' });
+      Object.assign(config.headers, { "Content-Type": "multipart/form-data" });
     }
 
     return config;

@@ -1,5 +1,6 @@
 import { axiosHandlerNoBearer } from "@/config/axios";
-import { cancelGame, socketGame2048 } from "@/config/socket_karas";
+import { cancelGame, disconnectSocket } from "@/config/socket_karas";
+import { GameContext } from "@/context/game-context";
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
 
@@ -12,6 +13,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
+import { io } from "socket.io-client";
 interface IWalletConnectionProps {
   connectWallet: (index: number) => void;
   disconnectWallet: () => void;
@@ -36,7 +38,11 @@ interface Configuration {
 export const WalletContext = createContext<IWalletConnectionProps>(initalValue);
 
 const ProviderWalletContext = ({ children }: PropsWithChildren) => {
-  const { address: addressWallet, status: statusWallet } = useAccount();
+  const {
+    address: addressWallet,
+    status: statusWallet,
+    account,
+  } = useAccount();
 
   const [config, setConfig] = useSessionStorage<Configuration>(
     "stark_2048_wallet",
@@ -50,50 +56,51 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   const [chain_id, setChainId] = React.useState(config.chain_id);
 
   const [sound, setSound] = React.useState(config.sound);
-  const { connect, connectors, connector } = useConnect();
-  // When User finish Connect => Start new Game => Create Board
+  const { connect, connectors } = useConnect();
 
   /// Custom
   const connectWallet = async (index: number) => {
     await connect({ connector: connectors[index] });
-
     try {
-      const currentAccount = await connector?.account();
-      if (currentAccount?.address) {
+      if (account) {
         const { data: dataSignMessage } = await axiosHandlerNoBearer.get(
           "/authentication/get-nonce",
           {
             params: {
-              address: currentAccount.address,
+              address: addressWallet,
             },
           },
         );
 
-        const signature = await currentAccount.signMessage(
+        const signature = await account.signMessage(
           dataSignMessage.data.signMessage,
         );
 
         const { data: dataToken } = await axiosHandlerNoBearer.post(
           "/authentication/token",
           {
-            address: currentAccount.address,
+            address: addressWallet,
             signature: signature,
-            rpc: RPC_VALUE.RPC_MAINET,
+            rpc: RPC_VALUE.RPC_TESTNET,
           },
         );
+        setAddress(addressWallet);
 
-        setChainId(index);
+        setConfig({
+          ...config,
+          address: addressWallet,
+          chain_id: index,
+        });
+
         setCookie({
           expires: "1d",
           key: ACCESS_TOKEN,
           value: dataToken.data.token,
         });
-
-        socketGame2048.on("connect", () => {
-          console.log("Connected to the server");
-        });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log("ERROR", error);
+    }
   };
 
   const handleToggleSound = async () => {
@@ -101,17 +108,20 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
   };
   const disconnectWallet = () => {
     setConfig({ address: undefined, chain_id: undefined, sound: true });
-    cancelGame();
     setAddress(undefined);
     setChainId(undefined);
     deleteCookie(ACCESS_TOKEN);
+    disconnectSocket();
   };
   useEffect(() => {
-    if (addressWallet && addressWallet !== address && chain_id != undefined) {
-      setAddress(addressWallet);
-      setConfig({ ...config, address: addressWallet, chain_id: chain_id });
-    }
-  }, [addressWallet, chain_id]);
+    const handleChangeWallet = async () => {
+      if (addressWallet && addressWallet !== address && chain_id != undefined) {
+        cancelGame();
+        await connectWallet(chain_id);
+      }
+    };
+    handleChangeWallet();
+  }, [addressWallet, address]);
   useEffect(() => {
     const handleReConenct = async () => {
       if (address && statusWallet === "disconnected" && chain_id != undefined) {
@@ -123,7 +133,7 @@ const ProviderWalletContext = ({ children }: PropsWithChildren) => {
       }
     };
     handleReConenct();
-  }, [address, chain_id]);
+  }, [statusWallet, addressWallet]);
 
   return (
     <WalletContext.Provider

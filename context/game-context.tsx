@@ -1,23 +1,23 @@
-import {
-  PropsWithChildren,
-  createContext,
-  useCallback,
-  useEffect,
-  useReducer,
-} from "react";
-import { isNil, throttle } from "lodash";
-import { mergeAnimationDuration } from "@/constants";
+import { PropsWithChildren, createContext, useReducer } from "react";
 
 import gameReducer, { initialState } from "@/reducers/game-reducer";
-import { getBoardData, startGameSocket } from "@/config/socket_karas";
+import {
+  getBoardData,
+  getGamePoint,
+  senderCommand,
+  startGameSocket,
+} from "@/config/socket_karas";
 
 export type MoveDirection = "up" | "down" | "left" | "right";
 
 export const GameContext = createContext({
   score: 0,
-  moveTiles: (_: MoveDirection) => {},
+  moveTiles: (_: MoveDirection) => {}, // Flat Map Array
   getTiles: () => [] as any,
   startGame: () => {},
+  configNewSize: (size: number) => {},
+  cleanGame: () => {},
+  gameState: initialState,
 });
 
 export default function GameProvider({ children }: PropsWithChildren) {
@@ -33,40 +33,41 @@ export default function GameProvider({ children }: PropsWithChildren) {
     );
   };
 
-  // const moveTiles = useCallback(
-  //   throttle(
-  //     (type: MoveDirection) => dispatch({ type }),
-  //     mergeAnimationDuration * 1.05,
-  //     { trailing: false },
-  //   ),
-  //   [dispatch],
-  // );
-  const moveTiles = (type: MoveDirection) => {
-    dispatch({ type });
-  };
-  const startGame = async () => {
-    startGameSocket(4);
+  const moveTiles = async (type: MoveDirection) => {
+    // dispatch({ type });
+
+    senderCommand(type);
     const data = await getBoardData();
 
     dispatch({
       type: "update_board",
       boardData: data,
     });
-    console.log("First Run", gameState.board);
+
+    const point = await getGamePoint();
+
+    dispatch({
+      type: "update_point",
+      point: point.point,
+    });
   };
-  useEffect(() => {
-    async function updateInfo() {
-      if (gameState.hasChanged) {
-        const data = await getBoardData();
-        console.log("data cai WTF", data);
-        dispatch({
-          type: "update_board",
-          boardData: data,
-        });
-      }
-    }
-    updateInfo();
-  }, [gameState.hasChanged]);
+
+  const configNewSize = (size: number) => {
+    dispatch({ type: "config_size", size });
+  };
+
+  const startGame = async () => {
+    startGameSocket(gameState.size);
+    const data = await getBoardData();
+    dispatch({
+      type: "update_board",
+      boardData: data,
+    });
+  };
+  const cleanGame = async () => {
+    dispatch({ type: "clean_up" });
+  };
+
   return (
     <GameContext.Provider
       value={{
@@ -74,6 +75,9 @@ export default function GameProvider({ children }: PropsWithChildren) {
         getTiles,
         moveTiles,
         startGame,
+        configNewSize,
+        gameState,
+        cleanGame,
       }}
     >
       {children}
