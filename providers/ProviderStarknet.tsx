@@ -1,4 +1,4 @@
-import { mainnet } from "@starknet-react/chains";
+import { mainnet, sepolia } from "@starknet-react/chains";
 import {
   InjectedConnector,
   StarknetConfig,
@@ -24,7 +24,7 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
   const provider = jsonRpcProvider({ rpc });
   return (
     <StarknetConfig
-      chains={[mainnet]}
+      chains={[sepolia]}
       provider={provider}
       connectors={connectors}
     >

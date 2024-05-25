@@ -9,11 +9,11 @@ import GameProvider from "@/context/game-context";
 const ProviderApp = ({ children }: PropsWithChildren) => {
   return (
     <ProviderStarknet>
-      <GameProvider>
-        <ChakraProvider theme={theme}>
-          <ProviderWalletContext>{children}</ProviderWalletContext>
-        </ChakraProvider>
-      </GameProvider>
+      <ProviderWalletContext>
+        <GameProvider>
+          <ChakraProvider theme={theme}>{children}</ChakraProvider>
+        </GameProvider>
+      </ProviderWalletContext>
     </ProviderStarknet>
   );
 };

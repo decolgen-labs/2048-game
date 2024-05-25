@@ -1,4 +1,5 @@
 import { GameContext } from "@/context/game-context";
+import { useWalletContext } from "@/providers/ProviderWalletContext";
 import { MAX_SIZE_BOARD, MIN_SIZE_BOARD } from "@/themes/constants";
 import {
   Box,
@@ -8,14 +9,14 @@ import {
   Text,
   useNumberInput,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React from "react";
 
 const ConfigSize = () => {
-  const { configNewSize, gameState } = useContext(GameContext);
+  const { configNewSize, size } = useWalletContext();
   const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
     useNumberInput({
       step: 1,
-      defaultValue: gameState.size,
+      defaultValue: size,
       min: MIN_SIZE_BOARD,
       max: MAX_SIZE_BOARD,
       onChange: (value) => {

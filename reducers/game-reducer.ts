@@ -1,11 +1,7 @@
-import { senderCommand } from "@/config/socket_karas";
-import { MIN_SIZE_BOARD } from "@/themes/constants";
-
 type State = {
   board: number[][];
   hasChanged: boolean;
   score: number;
-  size: number;
 };
 type Action =
   | { type: "update_board"; boardData: number[][] }
@@ -17,7 +13,6 @@ export const initialState: State = {
   board: [],
   hasChanged: false,
   score: 0,
-  size: MIN_SIZE_BOARD,
 };
 
 export default function gameReducer(

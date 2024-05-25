@@ -58,72 +58,76 @@ const StopGame = () => {
   };
   return (
     <>
-      {/* {score > 0 && ( */}
-      <>
-        <Button
-          variant="icon_btn"
-          onClick={async () => {
-            onOpen();
-          }}
-        >
-          <Icon as={StopIcon} height={6} width={6} />
-        </Button>
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent
-            background="none"
-            minH={400}
-            backgroundRepeat="no-repeat"
-            backgroundSize="contain"
-            backgroundPosition="center"
-            backgroundImage="url('/assets/arts/modal_finish.svg')"
+      {score > 0 && (
+        <>
+          <Button
+            variant="icon_btn"
+            onClick={async () => {
+              onOpen();
+            }}
           >
-            <ModalBody as={VStack}>
-              <HStack mt={20} gap={4}>
-                {Array.from({ length: 3 }).map((_, index) => (
-                  <Icon
-                    as={StarIcon}
-                    h={12}
-                    width={12}
-                    key={index}
-                    transform={index == 1 ? "translateY(-20px)" : ""}
-                  />
-                ))}
-              </HStack>
+            <Icon as={StopIcon} height={6} width={6} />
+          </Button>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent
+              background="none"
+              minH={400}
+              backgroundRepeat="no-repeat"
+              backgroundSize="contain"
+              backgroundPosition="center"
+              backgroundImage="url('/assets/arts/modal_finish.svg')"
+            >
+              <ModalBody as={VStack}>
+                <HStack mt={20} gap={4}>
+                  {Array.from({ length: 3 }).map((_, index) => (
+                    <Icon
+                      as={StarIcon}
+                      h={12}
+                      width={12}
+                      key={index}
+                      transform={index == 1 ? "translateY(-20px)" : ""}
+                    />
+                  ))}
+                </HStack>
 
-              <Text fontSize="40px" fontWeight="bold">
-                {score}
-              </Text>
-              <Text textTransform="uppercase" color="#FFB35B" fontWeight="bold">
-                Point
-              </Text>
-            </ModalBody>
-            <ModalFooter justifyContent="center" alignItems="center">
-              <Button
-                variant="icon_btn"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                <Icon as={ResumeIcon} height={6} width={6} />
-              </Button>
-              <Button
-                variant="connect_wallet"
-                sx={{
-                  maxWidth: "220px",
-                }}
-                onClick={async () => {
-                  await handleClaimPoint();
-                }}
-              >
-                Claim Point
-              </Button>
-              <AccountSetting />
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-      </>
-      {/* )} */}
+                <Text fontSize="40px" fontWeight="bold">
+                  {score}
+                </Text>
+                <Text
+                  textTransform="uppercase"
+                  color="#FFB35B"
+                  fontWeight="bold"
+                >
+                  Point
+                </Text>
+              </ModalBody>
+              <ModalFooter justifyContent="center" alignItems="center">
+                <Button
+                  variant="icon_btn"
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  <Icon as={ResumeIcon} height={6} width={6} />
+                </Button>
+                <Button
+                  variant="connect_wallet"
+                  sx={{
+                    maxWidth: "220px",
+                  }}
+                  onClick={async () => {
+                    await handleClaimPoint();
+                  }}
+                >
+                  Claim Point
+                </Button>
+                <AccountSetting />
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </>
+      )}
     </>
   );
 };

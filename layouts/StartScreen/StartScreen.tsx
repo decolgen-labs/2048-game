@@ -1,8 +1,6 @@
 import React from "react";
 
-import { useWalletContext } from "@/providers/ProviderWalletContext";
-
-import { Box, Button, Icon, VStack } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import Image from "next/image";
 import ConnectWallet from "@/components/ConnectWallet";
 import { convertHex } from "@/utils/convertHex";

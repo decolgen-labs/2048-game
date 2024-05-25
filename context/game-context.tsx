@@ -7,6 +7,7 @@ import {
   senderCommand,
   startGameSocket,
 } from "@/config/socket_karas";
+import { useWalletContext } from "@/providers/ProviderWalletContext";
 
 export type MoveDirection = "up" | "down" | "left" | "right";
 
@@ -15,14 +16,13 @@ export const GameContext = createContext({
   moveTiles: (_: MoveDirection) => {}, // Flat Map Array
   getTiles: () => [] as any,
   startGame: () => {},
-  configNewSize: (size: number) => {},
   cleanGame: () => {},
   gameState: initialState,
 });
 
 export default function GameProvider({ children }: PropsWithChildren) {
   const [gameState, dispatch] = useReducer(gameReducer, initialState);
-
+  const { size } = useWalletContext();
   const getTiles = () => {
     return gameState.board.flatMap((row, rowIndex) =>
       row.map((tile, colIndex) => ({
@@ -52,12 +52,8 @@ export default function GameProvider({ children }: PropsWithChildren) {
     });
   };
 
-  const configNewSize = (size: number) => {
-    dispatch({ type: "config_size", size });
-  };
-
   const startGame = async () => {
-    startGameSocket(gameState.size);
+    startGameSocket(size);
     const data = await getBoardData();
     dispatch({
       type: "update_board",
@@ -75,7 +71,6 @@ export default function GameProvider({ children }: PropsWithChildren) {
         getTiles,
         moveTiles,
         startGame,
-        configNewSize,
         gameState,
         cleanGame,
       }}

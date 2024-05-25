@@ -16,14 +16,16 @@ import { Box, Grid } from "@chakra-ui/react";
 
 import ModalGameClaim from "../Modal/ModalGameClaim";
 import { canGameContinue } from "@/utils/rule";
-import { getCookie } from "@/utils/cookie";
+
 import { connectSocket } from "@/config/socket_karas";
+import { useWalletContext } from "@/providers/ProviderWalletContext";
 
 const GameBoard = () => {
   const { moveTiles, startGame, gameState, getTiles } = useContext(GameContext);
+  const { size } = useWalletContext();
   const initialized = useRef(false);
   const [{ width: tileWidth, height: tileHeight }, setTileSize] = useState(() =>
-    calcTileSize(GRID_SIZE, gameState.size, gameState.size, SPACING),
+    calcTileSize(GRID_SIZE, size, size, SPACING),
   );
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -89,8 +91,8 @@ const GameBoard = () => {
           sx={{
             position: "relative",
           }}
-          rows={gameState.size}
-          cols={gameState.size}
+          rows={size}
+          cols={size}
           height={GRID_SIZE}
           width={GRID_SIZE}
           spacing={SPACING}
@@ -104,8 +106,8 @@ const GameBoard = () => {
             blockSize="100%"
             inlineSize="100%"
             as={Grid}
-            gridTemplateColumns={`repeat(${gameState.size}, 1fr)`}
-            gridTemplateRows={`repeat(${gameState.size}, 1fr)`}
+            gridTemplateColumns={`repeat(${size}, 1fr)`}
+            gridTemplateRows={`repeat(${size}, 1fr)`}
             gridGap={`${SPACING}px`}
           >
             {getTiles().map(({ row, col, value }) => (
