@@ -1,4 +1,4 @@
-import { mainnet, sepolia } from "@starknet-react/chains";
+import { mainnet } from "@starknet-react/chains";
 import {
   InjectedConnector,
   StarknetConfig,
@@ -15,16 +15,16 @@ const ProviderStarknet = ({ children }: PropsWithChildren) => {
   ];
   function rpc() {
     return {
-      nodeUrl: "https://starknet-sepolia.public.blastapi.io/rpc/v0_7",
+      // nodeUrl: "https://starknet-sepolia.public.blastapi.io/rpc/v0_7",
       // nodeUrl: "https://free-rpc.nethermind.io/sepolia-juno",
-      // nodeUrl: "https://starknet-mainnet.public.blastapi.io/rpc/v0_7",
+      nodeUrl: "https://starknet-mainnet.public.blastapi.io/rpc/v0_7",
     };
   }
 
   const provider = jsonRpcProvider({ rpc });
   return (
     <StarknetConfig
-      chains={[sepolia]}
+      chains={[mainnet]}
       provider={provider}
       connectors={connectors}
     >
