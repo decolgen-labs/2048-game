@@ -68,8 +68,6 @@ const GameBoard = () => {
 
   useEffect(() => {
     if (initialized.current === false && gameState.board.length === 0) {
-      console.log("I DOn't think you need", getCookie(ACCESS_TOKEN));
-
       connectSocket();
       startGame();
       initialized.current = true;

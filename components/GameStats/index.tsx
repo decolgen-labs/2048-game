@@ -8,12 +8,14 @@ import StopGame from "./StopGame";
 
 const GameStats = () => {
   return (
-    <HStack gap={1}>
+    <HStack gap={1} justifyContent="space-between">
       <Score />
-      <StopGame />
-      <ResetGame />
-      <AccountSetting />
-      <ToggleSound />
+      <HStack justifyContent="flex-end">
+        <StopGame />
+        <ResetGame />
+        <AccountSetting />
+        <ToggleSound />
+      </HStack>
     </HStack>
   );
 };

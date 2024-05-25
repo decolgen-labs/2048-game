@@ -1,6 +1,6 @@
 import { axiosHandlerNoBearer } from "@/config/axios";
 import { cancelGame, disconnectSocket } from "@/config/socket_karas";
-import { GameContext } from "@/context/game-context";
+
 import useSessionStorage from "@/hooks/useSessionStorage";
 import { ACCESS_TOKEN, RPC_VALUE } from "@/utils/constants";
 
@@ -13,7 +13,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { io } from "socket.io-client";
+
 interface IWalletConnectionProps {
   connectWallet: (index: number) => void;
   disconnectWallet: () => void;

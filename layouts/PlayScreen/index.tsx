@@ -9,16 +9,16 @@ const PlayScreen = () => {
   return (
     <>
       <VStack height="100vh" justifyContent="center">
-        <Flex flexDirection="column">
+        <Flex flexDirection="column" gap={3}>
           <GameStats />
           <GameBoard />
-          <Image
-            src="/assets/generals/2048_logo.svg"
-            alt="2048 Logo"
-            width={379}
-            height={120}
-          />
         </Flex>
+        <Image
+          src="/assets/generals/2048_logo.svg"
+          alt="2048 Logo"
+          width={400}
+          height={120}
+        />
       </VStack>
     </>
   );
