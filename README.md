@@ -1,31 +1,66 @@
-# 2048-in-react
+# 2048 Game Onchain StarkNet
 
-[![Open issues][issues-badge]][issues-url]
-[![CI][lint-badge]][lint-url]
-[![CI][test-badge]][test-url]
-[![TypeScript][typescript-badge]][typescript-url]
+A brief description of the project.
 
-[![](.docs/demo.gif)](https://mateuszsokola.github.io/2048-in-react/)
+## Installation
 
-## [Play 2048 💥](https://mateuszsokola.github.io/2048-in-react/)
+1. Clone the repository:
 
-## Features
+    ```bash
+    git clone https://github.com/username/repository.git
+    ```
 
-- Fully-functional 2048 clone
-- Animations
-- Supports **keyboard**, **mouse** and **touch** events
+2. Install the dependencies:
 
-## Development
+    ```bash
+    npm install
+    ```
 
-_Easily set up a local development environment!_
+3. Configure the project:
 
-Just start dev server on [localhost](http://localhost:3000):
+    - Step 1
+    - Step 2
+    - Step 3
 
-- clone
-- `npm install`
-- `npm run dev`
+4. Build the project:
 
-**Start coding!** 🎉
+    ```bash
+    npm run build
+    ```
 
-## Build your own 2048 Game! 🚀
+## Usage
 
+Describe how to use the product, including any specific commands or configurations.
+
+## License
+
+This project is licensed under the [StarkArcade Hub License](https://link-to-license).
+
+## Game Onchain StarkNet
+
+Provide any specific instructions or details related to the game onchain StarkNet.
+
+## Contributing
+
+If you would like to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Submit a pull request.
+
+## Support
+
+If you encounter any issues or have any questions, please [open an issue](https://link-to-issue-tracker).
+
+## Acknowledgements
+
+Mention any individuals or organizations that you would like to acknowledge.
+
+## Related Projects
+
+List any related projects or repositories that users may find interesting.
+
+## Roadmap
+
+Outline the future plans and development roadmap for the project.
