@@ -1,35 +1,26 @@
 "use client";
-import Head from "next/head";
-import Board from "@/components/board";
-import Score from "@/components/score";
-import styles from "@/styles/index.module.css";
+
+import GameBoard from "@/components/GameBoard";
+import Image from "next/image";
+
+import { Flex, VStack } from "@chakra-ui/react";
+import GameStats from "@/components/GameStats";
 const PlayScreen = () => {
   return (
-    <div className={styles.twenty48}>
-      <Head>
-        <title>Play 2048</title>
-        <meta
-          name="description"
-          content="Fully-functional 2048 game built in NextJS and TypeScript. Including animations."
+    <>
+      <VStack height="100vh" justifyContent="center">
+        <Flex flexDirection="column" gap={3}>
+          <GameStats />
+          <GameBoard />
+        </Flex>
+        <Image
+          src="/assets/generals/2048_logo.svg"
+          alt="2048 Logo"
+          width={400}
+          height={120}
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="apple-touch-icon.png"
-        />
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon16.png" />
-      </Head>
-      <header>
-        <h1>2048</h1>
-        <Score />
-      </header>
-      <main>
-        <Board />
-      </main>
-    </div>
+      </VStack>
+    </>
   );
 };
 
