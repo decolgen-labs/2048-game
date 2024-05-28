@@ -4,10 +4,10 @@ A brief description of the project.
 
 ## Installation
 
-1. Clone the repository:
+1. Fork the repository:
 
     ```bash
-    git clone https://github.com/username/repository.git
+    git fork 
     ```
 
 2. Install the dependencies:
@@ -34,7 +34,7 @@ Describe how to use the product, including any specific commands or configuratio
 
 ## License
 
-This project is licensed under the [StarkArcade Hub License](https://link-to-license).
+This project is licensed under the [StarkArcade Hub License]().
 
 ## Game Onchain StarkNet
 
@@ -51,7 +51,7 @@ If you would like to contribute to the project, please follow these steps:
 
 ## Support
 
-If you encounter any issues or have any questions, please [open an issue](https://link-to-issue-tracker).
+If you encounter any issues or have any questions, please [open an issue]().
 
 ## Acknowledgements
 
