@@ -5,6 +5,7 @@ import ProviderWalletContext from "./ProviderWalletContext";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "@/themes";
 import GameProvider from "@/context/game-context";
+import ProviderScript from "./ProviderScript";
 
 const ProviderApp = ({ children }: PropsWithChildren) => {
   return (
@@ -13,6 +14,7 @@ const ProviderApp = ({ children }: PropsWithChildren) => {
         <GameProvider>
           <ChakraProvider theme={theme}>{children}</ChakraProvider>
         </GameProvider>
+        <ProviderScript />
       </ProviderWalletContext>
     </ProviderStarknet>
   );
