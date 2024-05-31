@@ -1,12 +1,14 @@
+import Script from "next/script";
+
 const ProviderScript = () => {
   return (
     <>
-      <script
+      <Script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-ZBDZGCPYGK"
-      ></script>
+      ></Script>
 
-      <script id="google-analytics">
+      <Script id="google-analytics">
         {`     
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -14,7 +16,7 @@ const ProviderScript = () => {
         gtag('config', 'G-ZBDZGCPYGK');
         gtag('send', 'pageview');
         `}
-      </script>
+      </Script>
     </>
   );
 };
